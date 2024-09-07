@@ -33,7 +33,7 @@ public class Game
 	// returns valid move char
 	public char selectPlayerTwoMove() 
 	{
-		return moves[random.nextInt(0,3)];
+		return moves[random.nextInt(3)];
 	}
 
 	// plays the game function
