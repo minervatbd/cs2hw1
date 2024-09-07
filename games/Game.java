@@ -11,7 +11,7 @@ import java.util.Random;
 // our good ole game class
 public class Game 
 {
-
+	// constants for dimensions
 	final static int HEIGHT = 8;
 	final static int WIDTH = 8;
 
@@ -39,7 +39,6 @@ public class Game
 	// plays the game function
 	public int play() 
 	{
-
 		// reset board helper
 		resetBoard();
 
@@ -75,6 +74,7 @@ public class Game
 			{
 				// initial select
 				currentMove = selectPlayerTwoMove();
+
 				// make sure its actually valid
 				while (!moveValid(currentMove, coords))
 					currentMove = selectPlayerTwoMove();
