@@ -30,7 +30,7 @@ public class Game
 		this.random = random;
 	}
 
-	// returns a random move as a char from the move array
+	// returns valid move char
 	public char selectPlayerTwoMove() 
 	{
 		return moves[random.nextInt(0,3)];
@@ -49,18 +49,15 @@ public class Game
 		// position trackers
 		int coords[] = {0,0};
 
-		// loop runs until game becomes inactive at position 7,7
+		// loop runs until game ends
 		while (gameActive(coords)) 
 		{
-			// default move is invalid, but it wont ever remain like this.
+			// default move is invalid, shouldnt matter
 			char currentMove = 'a';
 
 			// player one's turn
 			if (numMoves % 2 == 0) 
 			{
-				// player one move generation: i came up with the formula after graphing out all of the areas that you can potentially get locked into an unwinnable situation.
-				// the only places where it wouldnt happen were spots in odd rows/columns that were both greater than one.
-
 				// default to diagonal down
 				currentMove = 'd';
 				
@@ -78,7 +75,7 @@ public class Game
 			{
 				// initial select
 				currentMove = selectPlayerTwoMove();
-				// loop to make sure its actually valid
+				// make sure its actually valid
 				while (!moveValid(currentMove, coords))
 					currentMove = selectPlayerTwoMove();
 			}
@@ -88,14 +85,13 @@ public class Game
 			numMoves++;
 		}
 
-		// only returns 1 if number of moves is odd, which would mean player 1 won
+		// odd numMoves means player 1 won
 		return numMoves % 2;
 	}
 
-	// helper that sets the board to all 0s except the starting point.
+	// set board to all 0s except start
 	private void resetBoard()
 	{
-		// nested for loop to just set everything to 0 except the initial space
 		for (int x = 0; x < WIDTH; x++)
 		{
 			for (int y = 0; y < HEIGHT; y++) 
@@ -109,7 +105,7 @@ public class Game
 		}
 	}
 
-	// helper function for applying moves, moves should be checked for validity BEFORE this point
+	// make valid moves
 	private int[] makeMove(char move, int[] coords)
 	{
 		// removes old position from board
@@ -127,7 +123,7 @@ public class Game
 		return coords;
 	}
 
-	// helper function for checking if the current position is the endgame position
+	// is current position not endgame
 	private boolean gameActive(int[] coords)
 	{
 		if (coords[0] == WIDTH - 1 && coords[1] == HEIGHT - 1)
@@ -136,7 +132,7 @@ public class Game
 		return true;
 	}
 
-	// helper function for checking the validity of player two's randomly generated moves. pretty self explanatory, if a move exceeds width/height, return false
+	// checks generated moves
 	private boolean moveValid(char move, int[] coords)
 	{
 		if (move == 'a')
